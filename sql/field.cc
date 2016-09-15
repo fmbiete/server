@@ -1403,7 +1403,7 @@ Item *Field_num::get_equal_zerofill_const_item(THD *thd, const Context &ctx,
     SELECT COUNT(@@basedir);
   from Item_func_get_system_var::update_null_value().
 */
-Value_source::Warn_filter::Warn_filter(const THD *thd)
+Value_converter::Warn_filter::Warn_filter(const THD *thd)
  :m_want_warning_edom(!thd->no_errors),
   m_want_note_truncated_spaces(!thd->no_errors)
 { }
@@ -1429,7 +1429,8 @@ Value_source::Warn_filter::Warn_filter(const THD *thd)
   the explicit CAST work closer to the implicit cast in Field_xxx::store().
 */
 void
-Value_source::Converter_string_to_number::check_edom_and_truncation(THD *thd,
+Value_converter::Converter_string_to_number::check_edom_and_truncation(
+                                                       THD *thd,
                                                        Warn_filter filter,
                                                        const char *type,
                                                        CHARSET_INFO *cs,
@@ -4702,7 +4703,7 @@ int truncate_double(double *nr, uint field_length, uint dec,
   @param unsigned_flag  true if result is unsigned
 */
 
-Value_source::
+Value_converter::
 Converter_double_to_longlong::Converter_double_to_longlong(double nr,
                                                            bool unsigned_flag)
   :m_error(false)
@@ -4741,7 +4742,7 @@ Converter_double_to_longlong::Converter_double_to_longlong(double nr,
 }
 
 
-void Value_source::
+void Value_converter::
 Converter_double_to_longlong::push_warning(THD *thd,
                                            double nr,
                                            bool unsigned_flag)
